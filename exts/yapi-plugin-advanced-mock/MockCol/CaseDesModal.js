@@ -11,6 +11,8 @@ import './CaseDesModal.scss'
 import { connect } from 'react-redux'
 import json5 from 'json5'
 
+var md5 = require('md5');
+
 const formItemLayout = {
   labelCol: { span: 5 },
   wrapperCol: { span: 12 }
@@ -172,6 +174,10 @@ class CaseDesForm extends Component {
       if (!err) {
         values.res_body = this.state.res_body;
         values.params = this.state.params;
+
+        // 自动生成使用res_body的md5值作为mockType
+        values.paramsArr.push({'name': 'mockType', 'value': md5(values.res_body)});
+
         this.props.onOk(this.endProcess(values));
       }
     })
