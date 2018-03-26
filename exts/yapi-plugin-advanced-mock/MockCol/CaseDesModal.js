@@ -178,8 +178,6 @@ class CaseDesForm extends Component {
         // 自动生成使用res_body的md5值作为mockType
         values.paramsArr.push({'name': 'mockType', 'value': md5(values.res_body)});
 
-        alert('haha');
-
         this.props.onOk(this.endProcess(values));
       }
     })
