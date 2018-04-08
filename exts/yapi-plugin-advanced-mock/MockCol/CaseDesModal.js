@@ -175,8 +175,31 @@ class CaseDesForm extends Component {
         values.res_body = this.state.res_body;
         values.params = this.state.params;
 
-        // 自动生成使用res_body的md5值作为mockType
-        values.paramsArr.push({'name': 'mockType', 'value': md5(values.res_body)});
+        let hasMockType = false;
+        if (values.paramsArr) {
+          for (let i = 0; i < values.paramsArr.length; i++) {
+            const element = values.paramsArr[i];
+            
+            if (element.name === 'mockType' && Boolean(element.value)) {
+              hasMockType = true;
+  
+              break;
+            }
+          }
+        }
+
+        if (!hasMockType) {
+          // 将res_body、delay、code、header作为一个整体计算md5，作为mockType
+          // 且对于已经生成过md5的case，不再重新计算md5值
+          // let mockCase = {
+          //   'res_body': values.res_body,
+          //   'code': values.code,
+          //   'delay': values.delay,
+          //   'headers': values.headers
+          // }
+
+          values.paramsArr.push({'name': 'mockType', 'value': md5(values.res_body)});
+        }
 
         this.props.onOk(this.endProcess(values));
       }
