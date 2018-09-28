@@ -87,7 +87,7 @@ class baseController {
       let result = yapi.commons.fieldSelect(this.$user, ['_id', 'username', 'email', 'up_time', 'add_time', 'role', 'type', 'study']);
       body = yapi.commons.resReturn(result);
     } else {
-      body = yapi.commons.resReturn(null, 40011, '请登录...');
+      body = yapi.commons.resReturn(null, 40011, '请登录啊...');
     }
 
     body.ladp = await this.checkLDAP();

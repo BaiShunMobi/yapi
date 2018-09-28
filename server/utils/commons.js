@@ -438,13 +438,15 @@ exports.createAction = (
           ));
         }
       }
+      // 无须登录，直接返回true，方便获取数据
+      inst.$auth = true;
       if (inst.$auth === true) {
         await inst[action].call(inst, ctx);
       } else {
         if (ws === true) {
           ctx.ws.send("请登录...");
         } else {
-          ctx.body = yapi.commons.resReturn(null, 40011, "请登录...");
+          ctx.body = yapi.commons.resReturn(null, 40011, "请登录呀...");
         }
       }
     } catch (err) {
